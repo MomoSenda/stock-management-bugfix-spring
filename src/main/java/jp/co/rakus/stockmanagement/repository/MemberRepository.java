@@ -39,7 +39,7 @@ public class MemberRepository {
 	 * @return メンバー情報.メンバーが存在しない場合はnull.
 	 */
 	public Member findByMailAddressAndPassword(String mailAddress, String password) {
-		SqlParameterSource param = new MapSqlParameterSource();
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password", password);
 		Member member = null;
 		try{
 			member = jdbcTemplate.queryForObject(

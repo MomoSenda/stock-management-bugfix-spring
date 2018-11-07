@@ -1,7 +1,4 @@
-<%@page import="java.util.Calendar" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../common/common.jsp"  %>
 <body>
 <div class="container">
@@ -41,7 +38,7 @@
 			      価格
 			    </th>
 			    <td>
-			      <fmt:formatNumber value="${book.price}" pattern="###,###"/>円
+			      <c:out value="${book.price}"/>円
 			    </td>
 			  </tr>
 			  <tr>

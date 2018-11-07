@@ -57,7 +57,7 @@
 			      発売日
 			    </th>
 			    <td>
-			      <c:out value="${book.saledate}"/>
+			      <fmt:formatDate value="${book.saledate}" pattern="yyyy年MM月dd日"/>
 			    </td>
 			  </tr>
 			  <tr>

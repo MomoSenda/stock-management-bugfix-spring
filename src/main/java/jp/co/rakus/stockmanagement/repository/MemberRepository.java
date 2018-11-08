@@ -2,6 +2,7 @@ package jp.co.rakus.stockmanagement.repository;
 
 import jp.co.rakus.stockmanagement.domain.Member;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -70,6 +71,13 @@ public class MemberRepository {
 					param);
 		}
 		return member;
+	}
+	
+	public Member findByMailAddress(String mailAddress) {
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress);
+		//Member 
+		//if(member.getMailAddress())
+		return null;
 	}
 
 }

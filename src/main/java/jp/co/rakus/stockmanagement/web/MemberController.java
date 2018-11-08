@@ -27,8 +27,8 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-	//@Autowired
-	//private HttpSession session;
+	// @Autowired
+	// private HttpSession session;
 
 	/**
 	 * フォームを初期化します.
@@ -63,14 +63,15 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "create")
 	public String create(@Validated MemberForm form, BindingResult result, Model model) {
+
 		if (result.hasErrors()) {
 			return form();
 		}
 
 		String mailAddress = form.getMailAddress();
-		Member member = memberService.findByMailAddress(mailAddress);
+		Member memberAnswer = memberService.findByMailAddress(mailAddress);
 
-		if (member!=null) {
+		if (memberAnswer != null) {
 			// エラーを出す
 
 			String message = "このメールアドレスは既に登録されています";
@@ -80,12 +81,21 @@ public class MemberController {
 
 			return form();
 		}
-		//Member member = new Member();
+		Member member = new Member();
 		BeanUtils.copyProperties(form, member);
 		memberService.save(member);
+
+		// パスワードの確認
+		String password = form.getPassword();
+		String password2 = form.getPassword2();
+		if (password2 != password) {
+			String message = "パスワードと入力内容が異なります";
+			result.rejectValue("password2", null, message);
+			return form();
+		}
+
 		return "redirect:/";
 
 	}
 
 }
-

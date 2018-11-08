@@ -13,6 +13,9 @@ public class Member {
 	private String mailAddress;
 	/** パスワード */
 	private String password;
+	/**確認用パスワード*/
+	private String password2;
+	
 	public Member() {}
 	public Member(Integer id, String name, String mailAddress, String password) {
 		super();
@@ -45,4 +48,12 @@ public class Member {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getPassword2() {
+		return password2;
+	}
+	public void setPassword2(String password2) {
+		this.password2 = password2;
+	}
+	
+
 }

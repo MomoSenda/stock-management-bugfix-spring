@@ -15,13 +15,16 @@ public class MemberForm {
 	@NotBlank(message="名前は必ず入力してください")
 	private String name;
 	/** メールアドレス */
-	@NotBlank(message="メールアドレス必ず入力してください")
+	@NotBlank(message="メールアドレスは必ず入力してください")
 	@Email(message="e-mailの値が不正です")
 	private String mailAddress;
 	/** パスワード */
 	@NotBlank(message="パスワードは必ず入力してください")
 	@Size(min=1,max=16,message="1文字以上16文字以下で入力してください")
 	private String password;
+	/**確認用パスワード*/
+	private String password2;
+	
 	public String getName() {
 		return name;
 	}
@@ -40,4 +43,12 @@ public class MemberForm {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getPassword2() {
+		return password2;
+	}
+	public void setPassword2(String password2) {
+		this.password2 = password2;
+	}
+	
+
 }

@@ -15,6 +15,7 @@ import jp.co.rakus.stockmanagement.service.MemberService;
 
 /**
  * メンバー関連処理を行うコントローラー.
+ * 
  * @author igamasayuki
  *
  */
@@ -26,8 +27,12 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
+	//@Autowired
+	//private HttpSession session;
+
 	/**
 	 * フォームを初期化します.
+	 * 
 	 * @return フォーム
 	 */
 	@ModelAttribute
@@ -35,34 +40,52 @@ public class MemberController {
 		return new MemberForm();
 	}
 
-
 	/**
 	 * メンバー情報登録画面を表示します.
+	 * 
 	 * @return メンバー情報登録画面
 	 */
 	@RequestMapping(value = "form")
 	public String form() {
 		return "/member/form";
 	}
-	
+
 	/**
 	 * メンバー情報を登録します.
-	 * @param form フォーム
-	 * @param result リザルト
-	 * @param model モデル
+	 * 
+	 * @param form
+	 *            フォーム
+	 * @param result
+	 *            リザルト
+	 * @param model
+	 *            モデル
 	 * @return ログイン画面
 	 */
 	@RequestMapping(value = "create")
-	public String create(@Validated MemberForm form,BindingResult result,
-			Model model) {
+	public String create(@Validated MemberForm form, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return form();
 		}
-		
-		Member member = new Member();
+
+		String mailAddress = form.getMailAddress();
+		Member member = memberService.findByMailAddress(mailAddress);
+
+		if (member!=null) {
+			// エラーを出す
+
+			String message = "このメールアドレスは既に登録されています";
+			result.rejectValue("mailAddress", null, message);
+			// String message="error";
+			// session.setAttribute("message",message);
+
+			return form();
+		}
+		//Member member = new Member();
 		BeanUtils.copyProperties(form, member);
 		memberService.save(member);
 		return "redirect:/";
+
 	}
-	
+
 }
+

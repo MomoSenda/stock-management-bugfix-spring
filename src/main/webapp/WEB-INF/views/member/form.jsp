@@ -21,8 +21,10 @@
 			      	メールアドレス
 			    </th>
 			    <td>
+		
 			    	<form:errors path="mailAddress" cssStyle="color:red" element="div"/>
 			    	<form:input path="mailAddress" placeholder="Email"/>
+			   		
 			    </td>
 			  </tr>
 			  <tr>

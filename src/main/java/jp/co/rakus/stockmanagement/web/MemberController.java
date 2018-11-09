@@ -64,9 +64,6 @@ public class MemberController {
 	@RequestMapping(value = "create")
 	public String create(@Validated MemberForm form, BindingResult result, Model model) {
 
-		if (result.hasErrors()) {
-			return form();
-		}
 
 		String mailAddress = form.getMailAddress();
 		Member memberAnswer = memberService.findByMailAddress(mailAddress);
@@ -79,21 +76,24 @@ public class MemberController {
 			// String message="error";
 			// session.setAttribute("message",message);
 
-			return form();
+//			return form();
 		}
-		Member member = new Member();
-		BeanUtils.copyProperties(form, member);
-		memberService.save(member);
-
 		// パスワードの確認
 		String password = form.getPassword();
 		String password2 = form.getPassword2();
 		if (password2 != password) {
 			String message = "パスワードと入力内容が異なります";
 			result.rejectValue("password2", null, message);
+//			return form();
+		}
+		
+		if (result.hasErrors()) {
 			return form();
 		}
-
+		
+		Member member = new Member();
+		BeanUtils.copyProperties(form, member);
+		memberService.save(member);
 		return "redirect:/";
 
 	}
